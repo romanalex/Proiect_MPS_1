@@ -8,3 +8,5 @@ Roman Alexandru Costin          342C2 <br>
 Selaru Alexandru                342C5 <br>
 Manole Miruna                   341C5 <br>
 Asli Fetisleam                  342C5 <br>
+<br><br>
+Limbajul folosit pentru proiect: Java
