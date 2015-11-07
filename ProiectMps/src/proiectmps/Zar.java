@@ -10,5 +10,20 @@ package proiectmps;
  * @author DAN
  */
 public class Zar {
-    
+    private char [] faces;
+    private char activeFace;
+
+
+    public Zar(char[] face){
+        faces = new char[9];
+        for(int i = 0; i < 9; i ++){
+            faces[i] = face[i];
+        }
+    }
+
+    public int getActiveFace() {
+        return activeFace;
+    }
+
+
 }
