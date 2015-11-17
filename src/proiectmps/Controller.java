@@ -40,11 +40,13 @@ public class Controller {
 		return this.Zaruri;
 	}
 	
-	public void getWord(String w){
+	public int sendWord(String w){
 		this.word = w;
+		//int result = Validare.sendWord(word);
+		return result;
 	}
 	
-	public String sendWord(){
+	public String getWord(){
 		return this.word;
 	}
 	
