@@ -73,7 +73,7 @@ public class Interfata extends Application {
 
     private ArrayList<Letter> lettersDisplayed;
     private ArrayList<Letter> availableLetters;
-    private GridPane grid = new GridPane();
+    private GridPane grid = new GridPane();;
     private BorderPane border = new BorderPane();
     private StackPane titleContainer = new StackPane();
     private StackPane wordContainer = new StackPane();
@@ -88,30 +88,33 @@ public class Interfata extends Application {
     private Label mesaj = new Label("");
     private Label scoreLabel = new Label("Scor");
     private Label mesajLabel = new Label("Mesaj");
+    private Controller controller = new Controller();
 
     private void populateLetters(Text displayWord){
         //creez letters in functie de ce fata au zarurile
-        //Controller controller = new Controller();
-        ArrayList<Zar> zaruri = new ArrayList<Zar>();///controller.getZaruri();
-        String a = "ACOAPMNOT";
+        Zar [] zaruri = controller.getZaruri();
         lettersDisplayed = new ArrayList<>();
         availableLetters = new ArrayList<>();
         System.out.println("display letters : " + lettersDisplayed.size());
         for (int i = 0; i < 9; i ++){
-            availableLetters.add(new Letter(String.valueOf(a.charAt(i)),displayWord,lettersDisplayed));
+            availableLetters.add(new Letter(String.valueOf(zaruri[i].faces[zaruri[i].active_face]),displayWord,lettersDisplayed));
         }
+        border.getChildren().remove(grid);
+        grid.getChildren().clear();
         for(int i = 0; i < 3; i ++)
             for(int j = 0; j < 3; j ++)
                 grid.add(availableLetters.get(3*i+j),j,i);
         score.setText("0");
         mesaj.setText("");
         displayWord.setText("");
+        border.setCenter(grid);
+
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-
+        System.out.println("ALEX : " + getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
         primaryStage.setTitle("Jocul Literelor");
         titleContainer.setAlignment(Pos.CENTER);
         Scene scene = new Scene(border,1200,800);
@@ -178,11 +181,10 @@ public class Interfata extends Application {
                 if (displayWord.getText().length()< 4)
                     mesaj.setText("Cuvantul este prea scurt");
                 else {
-                    //scor = scor + controller.verifyWord(displayWord.getText()));
+                    scor = scor + controller.sendWord(displayWord.getText().toLowerCase());
                     if (scor >= 0) {
                         scor = Integer.parseInt(score.getText()) + scor;
                         System.out.println("Scor : " + scor);
-                        scor = scor + 250;
                         mesaj.setText("Bravo, ai acumulat " + String.valueOf(scor) + " puncte");
                         score.setText(String.valueOf(scor));
                     }
@@ -208,7 +210,7 @@ public class Interfata extends Application {
         img.fitWidthProperty().bind(primaryStage.widthProperty());
         img.setFitHeight(200);
         border.setTop(img);
-        border.setCenter(grid);
+       // border.setCenter(grid);
         border.setBottom(wordContainer);
         border.setLeft(vbButtons);
         border.setRight(vbRightPane);
